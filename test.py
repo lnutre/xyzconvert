@@ -16,6 +16,7 @@ def Get_encoding(filepath):
     detector.close()
     return detector.result['encoding']
 
+print(path.dirname(__file__))
 
 with open(r"C:\Users\Administrator\Desktop\1", "a", encoding='utf-8', newline="") as f:
     csv_writer = writer(f)

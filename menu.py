@@ -1,8 +1,6 @@
 # coding:utf-8
 import winreg as reg
-
-# coding:utf-8
-import winreg as reg
+from os import path
 
 
 def add_context_menu(menu_name, command, reg_root_key_path, reg_key_path, shortcut_key):
@@ -28,46 +26,6 @@ def add_context_menu(menu_name, command, reg_root_key_path, reg_key_path, shortc
     # 关闭sub_key和key
     reg.CloseKey(sub_key)
     reg.CloseKey(key)
-
-
-def add_xyz_menu():
-    """
-    添加右键菜单，可以在右键点击一个文件、目录、文件夹空白处或驱动器盘符后在命令行中打印出当前的绝对路径
-    :return: None
-    """
-    # 菜单名称
-    menu_name = '转换为XYZ'
-    # 执行一个python脚本的命令，用于打印命令行参数的第二个参数（即选中的文件路径）
-    py_command = r'python D:\\show_path.py'
-
-    # 添加文件右键菜单
-    add_context_menu(menu_name, py_command, reg.HKEY_CLASSES_ROOT, r'*\\shell', 'S')
-    # 添加文件夹右键菜单
-    # add_context_menu(menu_name, py_command, reg.HKEY_CLASSES_ROOT, r'Directory\\shell', 'S')
-    # 添加文件夹空白处右键菜单
-    # add_context_menu(menu_name, py_command, reg.HKEY_CLASSES_ROOT, r'Directory\\Background\\shell', 'S')
-    # 添加磁盘驱动器右键菜单
-    # add_context_menu(menu_name, py_command, reg.HKEY_CLASSES_ROOT, r'Drive\\shell', 'S')
-
-
-def add_dat_menu():
-    """
-    添加右键菜单，可以在右键点击一个文件、目录、文件夹空白处或驱动器盘符后在命令行中打印出当前的绝对路径
-    :return: None
-    """
-    # 菜单名称
-    menu_name = '转换为DAT'
-    # 执行一个python脚本的命令，用于打印命令行参数的第二个参数（即选中的文件路径）
-    py_command = r'python D:\\show_path.py'
-
-    # 添加文件右键菜单
-    add_context_menu(menu_name, py_command, reg.HKEY_CLASSES_ROOT, r'*\\shell', 'S')
-    # 添加文件夹右键菜单
-    # add_context_menu(menu_name, py_command, reg.HKEY_CLASSES_ROOT, r'Directory\\shell', 'S')
-    # 添加文件夹空白处右键菜单
-    # add_context_menu(menu_name, py_command, reg.HKEY_CLASSES_ROOT, r'Directory\\Background\\shell', 'S')
-    # 添加磁盘驱动器右键菜单
-    # add_context_menu(menu_name, py_command, reg.HKEY_CLASSES_ROOT, r'Drive\\shell', 'S')
 
 
 def delete_reg_key(root_key, key, menu_name):
@@ -100,10 +58,27 @@ def delete_reg_key(root_key, key, menu_name):
                 reg.DeleteKey(parent_key, menu_name)
 
 
+def add_menu():
+    """
+    添加右键菜单，可以在右键点击一个文件、目录、文件夹空白处或驱动器盘符后在命令行中打印出当前的绝对路径
+    :return: None
+    """
+
+    # 添加文件右键菜单
+    add_context_menu('转换为XYZ', path.dirname(__file__)+'\main.exe -mode xyz', reg.HKEY_CLASSES_ROOT, r'*\\shell', 'S')
+    add_context_menu('转换为DAT', path.dirname(__file__)+'\main.exe -mode dat', reg.HKEY_CLASSES_ROOT, r'*\\shell', 'S')
+    # 添加文件夹右键菜单
+    # add_context_menu(menu_name, py_command, reg.HKEY_CLASSES_ROOT, r'Directory\\shell', 'S')
+    # 添加文件夹空白处右键菜单
+    # add_context_menu(menu_name, py_command, reg.HKEY_CLASSES_ROOT, r'Directory\\Background\\shell', 'S')
+    # 添加磁盘驱动器右键菜单
+    # add_context_menu(menu_name, py_command, reg.HKEY_CLASSES_ROOT, r'Drive\\shell', 'S')
+
+
 def delete_all_menu():
     menu_name = ['转换为DAT', '转换为XYZ']
     for i in menu_name:
-        delete_reg_key(reg.HKEY_CLASSES_ROOT, r'*\\shell', menu_name)
+        delete_reg_key(reg.HKEY_CLASSES_ROOT, r'*\\shell', i)
         # delete_reg_key(reg.HKEY_CLASSES_ROOT, r'Directory\\shell', menu_name)
         # delete_reg_key(reg.HKEY_CLASSES_ROOT, r'Directory\\Background\\shell', menu_name)
         # delete_reg_key(reg.HKEY_CLASSES_ROOT, r'Drive\\shell', menu_name)
