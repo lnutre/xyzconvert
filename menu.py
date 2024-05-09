@@ -69,7 +69,7 @@ def add_menu(z: float):
                      'S')
     add_context_menu('转换为DAT', path.dirname(__file__) + '\main.exe -mode dat', reg.HKEY_CLASSES_ROOT, r'*\\shell',
                      'S')
-    add_context_menu('转换为XYZ并转换高程', path.dirname(__file__) + '\main.exe -mode xyz {}'.format(z),
+    add_context_menu('转换为XYZ并转换高程', path.dirname(__file__) + '\main.exe -mode xyz -c {}'.format(z),
                      reg.HKEY_CLASSES_ROOT,
                      r'*\\shell',
                      'S')
