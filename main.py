@@ -59,15 +59,11 @@ if __name__ == "__main__":
             data = openfile(args.filepath)
             data[:, -1] = data[:, -1] + float(args.c)
             savefile(data, args.filepath, args.mode)
-            system('pause')
         else:
             savefile(openfile(args.filepath), args.filepath, args.mode)
-            system('pause')
         if args.swap:
             data = openfile(args.filepath)
             data = data[:, [1, 0, 2]]
             savefile(data, args.filepath, args.mode)
-            system('pause')
     else:
         print("请输入文件路径")
-        system('pause')
