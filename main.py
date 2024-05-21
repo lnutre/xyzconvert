@@ -1,8 +1,9 @@
 import argparse
 import re
 import sys
-from os import path,system
+from os import path, system
 import numpy as np
+import pandas as pd
 from pandas import DataFrame
 from chardet.universaldetector import UniversalDetector
 from sys import argv
@@ -39,10 +40,8 @@ def custom_split(line):
 
 
 def openfile(openpath: str):
-    data = np.fromregex(openpath, regexp=r'(\b\d+\.*\d*\b)(\D)(\b\d+\.*\d*\b)(\D)(\b\d+\.*\d*\b)',
-                        encoding=Get_encoding(openpath),
-                        dtype=[('x', float), ('F1', str), ('y', float), ('F2', str), ('z', float)])
-    data = np.vstack((data['x'], data['y'], data['z'])).T
+    data = pd.read_csv(openpath, sep=r'\t|,| |\s+', encoding=Get_encoding(openpath), header=None, engine='python')
+    data = data.iloc[:, -3:]
     return data
 
 
