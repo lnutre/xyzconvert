@@ -1,12 +1,7 @@
 import argparse
-import re
-import sys
-from os import path, system
-import numpy as np
+from os import path
 import pandas as pd
-from pandas import DataFrame
 from chardet.universaldetector import UniversalDetector
-from sys import argv
 
 
 def Get_encoding(filepath):
@@ -24,24 +19,18 @@ def savefile(data, openpath: str, mode: str):
     filename, file_ext = path.splitext(filename)
     filename = filename + '.' + mode
     if mode == "xyz":
-        np.savetxt(str(path.join(file_dir, filename)), data, delimiter=',', fmt="%.2f")
+        data.to_csv(str(path.join(file_dir, filename)), header=False, float_format='%.2f', index=False)
     elif mode == 'dat':
-        data = DataFrame(data)
         data.insert(0, 'name', "")
         # print(data)
-        data.to_csv(str(path.join(file_dir, filename)), header=False)
+        data.to_csv(str(path.join(file_dir, filename)), header=False, float_format='%.2f')
         # np.savetxt(str(path.join(file_dir, filename)), data, delimiter=',')
-
-
-def custom_split(line):
-    print(type(line))
-    print(list(map(float, re.split("[ ,\t]", line))))
-    return np.array(list(map(float, re.split("[ ,\t]", line))), dtype=float)
 
 
 def openfile(openpath: str):
     data = pd.read_csv(openpath, sep=r'\t|,| |\s+', encoding=Get_encoding(openpath), header=None, engine='python')
     data = data.iloc[:, -3:]
+    data.columns = ['X', 'Y', 'Z']
     return data
 
 
@@ -56,13 +45,13 @@ if __name__ == "__main__":
     if args.filepath:
         if args.c:
             data = openfile(args.filepath)
-            data[:, -1] = data[:, -1] + float(args.c)
+            data['Z'] = data['Z'].map(lambda x: x + float(args.c))
             savefile(data, args.filepath, args.mode)
         else:
             savefile(openfile(args.filepath), args.filepath, args.mode)
         if args.swap:
             data = openfile(args.filepath)
-            data = data[:, [1, 0, 2]]
+            data[['X', 'Y', 'Z']] = data[['Y', 'X', 'Z']]
             savefile(data, args.filepath, args.mode)
     else:
         print("请输入文件路径")
