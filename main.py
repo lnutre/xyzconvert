@@ -50,14 +50,12 @@ if __name__ == "__main__":
             data = openfile(args.filepath)
             data['Z'] = data['Z'].map(lambda x: x + float(args.c))
             savefile(data, args.filepath, args.mode)
-            QMessageBox.information(None, "通知", "转换完成")
         else:
             savefile(openfile(args.filepath), args.filepath, args.mode)
-            QMessageBox.information(None, "通知", "转换完成")
         if args.swap:
             data = openfile(args.filepath)
             data[['X', 'Y', 'Z']] = data[['Y', 'X', 'Z']]
             savefile(data, args.filepath, args.mode)
-            QMessageBox.information(None, "通知", "转换完成")
+        QMessageBox.information(None, "通知", "转换完成")
     else:
         QMessageBox.critical(None, "错误", "请输入文件路径")
