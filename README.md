@@ -1,18 +1,20 @@
 xyz,dat文件格式转换
 
 编译命令--带命令行窗口
-nuitka --standalone --lto=no --mingw64 --show-progress --show-memory
---nofollow-import-to=http,codes,logging,typing,enum,warings,ast,shutil,email,pandas,numpy,encodings
---include-module=ctypes --enable-plugin=pyside6 --output-dir=o main.py
 
-nuitka --standalone --lto=no --mingw64 --show-progress --show-memory --enable-plugin=pyside6 --output-dir=t  .\menu_ui.py
+`nuitka --standalone --lto=no --mingw64 --show-progress --show-memory
+--nofollow-import-to=http,codes,logging,typing,enum,warings,ast,shutil,email,pandas,numpy,encodings
+--include-module=ctypes --enable-plugin=pyside6 --output-dir=o main.py`
+
+`nuitka --standalone --lto=no --mingw64 --show-progress --show-memory --enable-plugin=pyside6 --output-dir=t .\menu_ui.py`
 
 编译命令--不带命令行窗口
-nuitka --standalone --lto=no --mingw64 --show-progress --show-memory
---nofollow-import-to=http,codes,logging,typing,enum,warings,ast,shutil,email,pandas,numpy,encodings
---include-module=ctypes --windows-console-mode=disable --enable-plugin=pyside6 --output-dir=o main.py
 
-nuitka --standalone --lto=no --mingw64 --show-progress --show-memory --enable-plugin=pyside6 --windows-disable-console --output-dir=t  .\menu_ui.py
+`nuitka --standalone --lto=no --mingw64 --show-progress --show-memory
+--nofollow-import-to=http,codes,logging,typing,enum,warings,ast,shutil,email,pandas,numpy,encodings
+--include-module=ctypes --windows-console-mode=disable --enable-plugin=pyside6 --output-dir=o main.py`
+
+`nuitka --standalone --lto=no --mingw64 --show-progress --show-memory --enable-plugin=pyside6 --windows-console-mode=disable --output-dir=t .\menu_ui.py`
 
 编译完成后 /o/main.dist和/t/main.dist下文件合并
 
