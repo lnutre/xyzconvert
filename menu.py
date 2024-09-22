@@ -65,15 +65,21 @@ def add_menu(z: float):
     """
 
     # 添加文件右键菜单
-    add_context_menu('转换为XYZ', path.dirname(__file__) + '\main.exe -mode xyz', reg.HKEY_CLASSES_ROOT, r'*\\shell',
+    add_context_menu('转换为XYZ', path.dirname(__file__) + '\main.exe -mode xyz',
+                     reg.HKEY_CLASSES_ROOT, r'*\\shell',
                      'S')
-    add_context_menu('转换为DAT', path.dirname(__file__) + '\main.exe -mode dat', reg.HKEY_CLASSES_ROOT, r'*\\shell',
+    add_context_menu('转换为DAT', path.dirname(__file__) + '\main.exe -mode dat',
+                     reg.HKEY_CLASSES_ROOT, r'*\\shell',
                      'S')
     add_context_menu('转换为XYZ并转换高程', path.dirname(__file__) + '\main.exe -mode xyz --c {}'.format(z),
                      reg.HKEY_CLASSES_ROOT,
                      r'*\\shell',
                      'S')
     add_context_menu('交换XY', path.dirname(__file__) + '\main.exe -mode xyz --swap 1',
+                     reg.HKEY_CLASSES_ROOT,
+                     r'*\\shell',
+                     'S')
+    add_context_menu('Z值取反', path.dirname(__file__) + '\main.exe -mode xyz --t 1',
                      reg.HKEY_CLASSES_ROOT,
                      r'*\\shell',
                      'S')
@@ -86,7 +92,7 @@ def add_menu(z: float):
 
 
 def delete_all_menu():
-    menu_name = ['转换为DAT', '转换为XYZ', '转换为XYZ并转换高程', '交换XY']
+    menu_name = ['转换为DAT', '转换为XYZ', '转换为XYZ并转换高程', '交换XY', 'Z值取反']
     for i in menu_name:
         delete_reg_key(reg.HKEY_CLASSES_ROOT, r'*\\shell', i)
         # delete_reg_key(reg.HKEY_CLASSES_ROOT, r'Directory\\shell', menu_name)

@@ -42,6 +42,7 @@ if __name__ == "__main__":
     parse.add_argument("filepath", help="文件路径")
     parse.add_argument("--swap", help="交换xy")
     parse.add_argument("--c", help="z加减数值")
+    parse.add_argument("--t", default=1, help="Z值取反")
     args = parse.parse_args()
     # print(args.filepath)
     app = QApplication([])
@@ -55,6 +56,10 @@ if __name__ == "__main__":
         if args.swap:
             data = openfile(args.filepath)
             data[['X', 'Y', 'Z']] = data[['Y', 'X', 'Z']]
+            savefile(data, args.filepath, args.mode)
+        if args.t:
+            data = openfile(args.filepath)
+            data['Z'] = data['Z'].map(lambda x: x * (-1))
             savefile(data, args.filepath, args.mode)
         QMessageBox.information(None, "通知", "转换完成")
     else:
