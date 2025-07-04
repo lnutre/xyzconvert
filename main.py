@@ -29,8 +29,7 @@ def savefile(data, openpath: str, mode: str):
 
 
 def openfile(openpath: str):
-    data = pd.read_csv(openpath, sep=r'\t|,| |  |\s+', encoding=Get_encoding(openpath), header=None, engine='python')
-    data.dropna(axis=1, how='all', inplace=True)
+    data = pd.read_csv(openpath, sep=r'\t|,| |\s+', encoding=Get_encoding(openpath), header=None, engine='python')
     data = data.iloc[:, -3:]
     data.columns = ['X', 'Y', 'Z']
     return data
