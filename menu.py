@@ -1,7 +1,7 @@
 # coding:utf-8
 import winreg as reg
 from os import path
-
+import platform
 
 def add_context_menu(menu_name, command, reg_root_key_path, reg_key_path, shortcut_key):
     """
@@ -63,20 +63,23 @@ def add_menu(z: float):
     添加右键菜单，可以在右键点击一个文件、目录、文件夹空白处或驱动器盘符后在命令行中打印出当前的绝对路径
     :return: None
     """
-
-    # 添加文件右键菜单
-    add_context_menu('转换为XYZ', path.dirname(__file__) + '\main.exe -mode xyz', reg.HKEY_CLASSES_ROOT, r'*\\shell',
-                     'S')
-    add_context_menu('转换为DAT', path.dirname(__file__) + '\main.exe -mode dat', reg.HKEY_CLASSES_ROOT, r'*\\shell',
-                     'S')
-    add_context_menu('转换为XYZ并转换高程', path.dirname(__file__) + '\main.exe -mode xyz --c {}'.format(z),
-                     reg.HKEY_CLASSES_ROOT,
-                     r'*\\shell',
-                     'S')
-    add_context_menu('交换XY', path.dirname(__file__) + '\main.exe -mode xyz --swap 1',
-                     reg.HKEY_CLASSES_ROOT,
-                     r'*\\shell',
-                     'S')
+    if platform.system() == 'Windows':
+        if int(platform.version().split('.')[2]) >= 22000:
+            return
+        else:
+            # 添加文件右键菜单
+            add_context_menu('转换为XYZ', path.dirname(__file__) + '\main.exe -mode xyz', reg.HKEY_CLASSES_ROOT, r'*\\shell',
+                             'S')
+            add_context_menu('转换为DAT', path.dirname(__file__) + '\main.exe -mode dat', reg.HKEY_CLASSES_ROOT, r'*\\shell',
+                             'S')
+            add_context_menu('转换为XYZ并转换高程', path.dirname(__file__) + '\main.exe -mode xyz --c {}'.format(z),
+                             reg.HKEY_CLASSES_ROOT,
+                             r'*\\shell',
+                             'S')
+            add_context_menu('交换XY', path.dirname(__file__) + '\main.exe -mode xyz --swap 1',
+                             reg.HKEY_CLASSES_ROOT,
+                             r'*\\shell',
+                             'S')
     # 添加文件夹右键菜单
     # add_context_menu(menu_name, py_command, reg.HKEY_CLASSES_ROOT, r'Directory\\shell', 'S')
     # 添加文件夹空白处右键菜单

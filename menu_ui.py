@@ -2,6 +2,8 @@ from PySide6.QtWidgets import QPushButton, QWidget, QMessageBox, QMainWindow, QV
     QHBoxLayout, QLineEdit
 from menu import delete_all_menu, add_menu
 
+import platform
+
 
 class Mainwidows(QMainWindow):
     def __init__(self):

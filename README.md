@@ -14,7 +14,7 @@ xyz,dat文件格式转换
 --nofollow-import-to=http,codes,logging,typing,enum,warings,ast,shutil,email,pandas,numpy,encodings
 --include-module=ctypes --windows-console-mode=disable --enable-plugin=pyside6 --output-dir=o main.py`
 
-`nuitka --standalone --lto=no --mingw64 --show-progress --show-memory --enable-plugin=pyside6 --windows-console-mode=disable --output-dir=t .\menu_ui.py`
+`nuitka --standalone --lto=no --mingw64 --show-progress --show-memory --enable-plugin=pyside6 --disable-console --windows-uac-admin --output-dir=t .\menu_ui.py`
 
 编译完成后 /o/main.dist和/t/main.dist下文件合并
 
