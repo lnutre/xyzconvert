@@ -18,6 +18,7 @@ def add_context_menu_parent(parent_name, reg_root_key_path, reg_key_path, shortc
         key = reg.CreateKey(reg_root_key_path, reg_key_path)
     reg.SetValueEx(key, 'MUIVerb', 0, reg.REG_SZ, parent_name + '(&{0})'.format(shortcut_key))
     reg.SetValueEx(key, 'Default', 0, reg.REG_SZ, '')
+    reg.SetValueEx(key, "Position", 0, reg.REG_SZ, "Top")
     reg.SetValueEx(key, 'SubCommands', 0, reg.REG_SZ, '')
     reg.CloseKey(key)
 

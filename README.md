@@ -12,9 +12,9 @@ xyz,dat文件格式转换
 
 `nuitka --standalone --lto=no --mingw64 --show-progress --show-memory
 --nofollow-import-to=http,codes,logging,typing,enum,warings,ast,shutil,email,pandas,numpy,encodings
---include-module=ctypes --windows-console-mode=disable --enable-plugin=pyside6 --output-dir=o main.py`
+--include-module=ctypes --disable-console --enable-plugin=pyside6,upx --upx-binary="C:\Users\yansh\PycharmProjects\upx\upx.exe" --output-dir=o main.py`
 
-`nuitka --standalone --lto=no --mingw64 --show-progress --show-memory --enable-plugin=pyside6 --disable-console --windows-uac-admin --output-dir=t .\menu_ui.py`
+`nuitka --standalone --lto=no --mingw64 --show-progress --show-memory --enable-plugin=pyside6,upx --disable-console --upx-binary="C:\Users\yansh\PycharmProjects\upx\upx.exe" --windows-uac-admin --output-dir=t .\menu_ui.py`
 
 编译完成后 /o/main.dist和/t/main.dist下文件合并
 
